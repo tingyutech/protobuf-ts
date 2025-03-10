@@ -30,6 +30,19 @@ export class MethodInfoGenerator {
         return ts.createArrayLiteral(mi, true);
     }
 
+    createMethodInfoMap(methodInfos: readonly rpc.PartialMethodInfo[]): ts.TypeLiteralNode {
+        const tl = methodInfos
+            .map(mi => MethodInfoGenerator.denormalizeMethodInfo(mi))
+            .map(mi => ts.createPropertySignature(
+                undefined,
+                ts.createIdentifier(mi.name),
+                undefined,
+                ts.createLiteralTypeNode(ts.createTrue()),
+                undefined
+            ));
+        return ts.createTypeLiteralNode(tl);
+    }
+
 
     createMethodInfoLiteral(source: TypescriptFile, methodInfo: rpc.PartialMethodInfo): ts.ObjectLiteralExpression {
         methodInfo = MethodInfoGenerator.denormalizeMethodInfo(methodInfo);
