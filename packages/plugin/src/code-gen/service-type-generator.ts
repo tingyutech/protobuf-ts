@@ -50,7 +50,7 @@ export class ServiceTypeGenerator extends GeneratorBase {
             );
         }
 
-        const methodInfos = this.methodInfoGenerator.createMethodInfoMap(interpreterType.methods);
+        const methodInfos = this.methodInfoGenerator.createMethodInfoMap(source, interpreterType.methods);
 
         const exportConst = ts.createVariableStatement(
             [ts.createModifier(ts.SyntaxKind.ExportKeyword)],
