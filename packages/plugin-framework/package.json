@@ -1,6 +1,6 @@
 {
   "name": "@tingyutech/protobuf-ts-plugin-framework",
-  "version": "2.9.5-fork1",
+  "version": "2.9.5-fork2",
   "description": "framework to create protoc plugins",
   "scripts": {
     "clean": "rm -rf build/* *.descriptorset *.codegenreq",
