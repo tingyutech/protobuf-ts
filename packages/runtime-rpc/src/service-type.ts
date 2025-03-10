@@ -1,11 +1,13 @@
 import {MethodInfo, normalizeMethodInfo, PartialMethodInfo, ServiceInfo} from "./reflection-info";
 import type {JsonValue} from "@protobuf-ts/runtime";
 
-type MethodInfoMap<Methods extends Record<string, true>> = {
-    [key in keyof Methods]: MethodInfo;
+type MethodIOPairs<I extends object, O extends object> = [I, O]
+
+type MethodInfoMap<Methods extends Record<string, MethodIOPairs<any, any>>> = {
+    [key in keyof Methods]: MethodInfo<Methods[key][0], Methods[key][1]>;
 }
 
-export class ServiceType<T extends Record<string, true> = {}> implements ServiceInfo {
+export class ServiceType<T extends Record<string, MethodIOPairs<any, any>> = {}> implements ServiceInfo {
 
     /**
      * The protobuf type name of the service, including package name if
