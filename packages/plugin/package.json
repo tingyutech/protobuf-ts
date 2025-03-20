@@ -46,7 +46,7 @@
     "@protobuf-ts/protoc": "^2.9.5",
     "@protobuf-ts/runtime": "^2.9.5",
     "@protobuf-ts/runtime-rpc": "npm:@tingyutech/protobuf-ts-runtime-rpc@2.9.5-fork2",
-    "typescript": "^3.9"
+    "typescript": "^5.5.4"
   },
   "gitHead": "2742e3995c14cab17e74be919b59b878c8383ad9"
 }

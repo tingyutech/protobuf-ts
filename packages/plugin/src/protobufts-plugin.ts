@@ -28,6 +28,7 @@ import {ServiceClientGeneratorGrpc} from "./code-gen/service-client-generator-gr
 import * as ts from "typescript";
 import {assert} from "@protobuf-ts/runtime";
 import {WellKnownTypes} from "./message-type-extensions/well-known-types";
+import { IndexFile } from "./index-file";
 
 
 export class ProtobuftsPlugin extends PluginBase {
@@ -376,6 +377,16 @@ export class ProtobuftsPlugin extends PluginBase {
             request.fileToGenerate.includes(of.fileDescriptor.name!)
             || registry.isFileUsed(of.fileDescriptor, outFileDescriptors)
         );
+
+        const indexFile = new IndexFile('index.ts')
+        tsFiles.push(indexFile as any)
+        for (const file of tsFiles) {
+            if (!file.getContent()) {
+                continue
+            }
+            const importPath = ('./' + file.getFilename()).replace('.ts', options.enable_import_extensions ? '.js' : '')
+            indexFile.addStatement(ts.createExportDeclaration(undefined, undefined, undefined, ts.createStringLiteral(importPath), undefined))
+        }
 
         return this.transpile(tsFiles, options);
     }
